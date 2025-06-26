@@ -80,6 +80,12 @@ var BaleBot = /** @class */ (function (_super) {
         if (options.polling) {
             _this.poll((_a = options.polling_interval) !== null && _a !== void 0 ? _a : 999);
         }
+        process.on("uncaughtException", function (err) { return __awaiter(_this, void 0, void 0, function () {
+            return __generator(this, function (_a) {
+                this.emit("fumble", err.message, 404);
+                return [2 /*return*/];
+            });
+        }); });
         return _this;
     }
     BaleBot.prototype.emit = function (event) {
@@ -1798,7 +1804,7 @@ var BaleBot = /** @class */ (function (_super) {
                                     evs.includes("sticker") ||
                                     evs.includes("document"))) return [3 /*break*/, 3];
                                 return [4 /*yield*/, this.request.makeConnection("getUpdates", {}, function (res) {
-                                        var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o, _p, _q, _r, _s, _t, _u, _v, _w, _x, _y, _z, _0, _1, _2, _3, _4, _5, _6, _7, _8, _9, _10, _11, _12, _13, _14, _15, _16, _17, _18, _19, _20, _21, _22, _23, _24, _25, _26, _27, _28, _29, _30, _31, _32, _33, _34, _35, _36, _37, _38, _39, _40, _41, _42, _43, _44, _45, _46, _47, _48, _49, _50, _51, _52, _53, _54, _55, _56;
+                                        var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o, _p, _q, _r, _s, _t, _u, _v, _w, _x, _y, _z, _0, _1, _2, _3, _4, _5, _6, _7, _8, _9, _10, _11, _12, _13, _14, _15, _16, _17, _18, _19, _20, _21, _22, _23, _24, _25, _26, _27, _28, _29, _30, _31, _32, _33, _34, _35, _36, _37, _38, _39, _40, _41, _42, _43, _44, _45, _46, _47, _48, _49, _50, _51, _52, _53, _54, _55, _56, _57, _58, _59, _60, _61, _62, _63, _64, _65, _66, _67, _68, _69, _70, _71, _72, _73, _74, _75, _76, _77, _78, _79, _80, _81, _82, _83, _84, _85, _86, _87, _88, _89, _90, _91, _92, _93, _94, _95, _96, _97, _98, _99, _100, _101, _102, _103, _104, _105, _106, _107, _108, _109, _110, _111, _112, _113, _114, _115, _116, _117, _118, _119, _120, _121, _122, _123, _124, _125, _126, _127, _128, _129, _130, _131, _132, _133, _134, _135, _136, _137, _138, _139, _140, _141, _142, _143, _144, _145, _146, _147, _148, _149, _150, _151, _152, _153, _154, _155, _156, _157, _158, _159, _160, _161, _162, _163, _164, _165, _166, _167, _168, _169, _170, _171, _172, _173, _174, _175, _176, _177, _178, _179, _180, _181, _182, _183, _184, _185, _186, _187, _188, _189, _190, _191, _192, _193, _194, _195, _196, _197, _198, _199, _200, _201, _202, _203, _204, _205, _206, _207, _208, _209, _210, _211, _212, _213, _214, _215, _216, _217, _218, _219, _220, _221, _222, _223, _224, _225, _226, _227, _228, _229, _230, _231, _232, _233, _234, _235, _236, _237, _238, _239;
                                         if (res.ok) {
                                             var indexes = (_a = res['result']) !== null && _a !== void 0 ? _a : [{}];
                                             var last_index = indexes.length - 1;
@@ -1806,6 +1812,7 @@ var BaleBot = /** @class */ (function (_super) {
                                                 var last_update = indexes[last_index]['message'];
                                                 if (!(last_update['date'] <= Math.max.apply(Math, mesids))) {
                                                     var photos = (_b = last_update['photo']) !== null && _b !== void 0 ? _b : [];
+                                                    var replyPhotos = (_d = (_c = last_update['reply_to_message']) === null || _c === void 0 ? void 0 : _c['photo']) !== null && _d !== void 0 ? _d : [];
                                                     var phs_4 = [];
                                                     photos.forEach(function (photo) {
                                                         var file_id = photo.file_id, file_unique_id = photo.file_unique_id, width = photo.width, height = photo.height, file_size = photo.file_size;
@@ -1817,7 +1824,19 @@ var BaleBot = /** @class */ (function (_super) {
                                                             file_size: file_size
                                                         });
                                                     });
-                                                    var news = (_c = last_update['new_chat_members']) !== null && _c !== void 0 ? _c : [];
+                                                    var rephs_1 = [];
+                                                    replyPhotos.forEach(function (photo) {
+                                                        var file_id = photo.file_id, file_unique_id = photo.file_unique_id, width = photo.width, height = photo.height, file_size = photo.file_size;
+                                                        rephs_1.push({
+                                                            file_id: file_id,
+                                                            file_unique_id: file_unique_id,
+                                                            width: width,
+                                                            height: height,
+                                                            file_size: file_size
+                                                        });
+                                                    });
+                                                    var news = (_e = last_update['new_chat_members']) !== null && _e !== void 0 ? _e : [];
+                                                    var replyNews = (_g = (_f = last_update['reply_to_message']) === null || _f === void 0 ? void 0 : _f['new_chat_members']) !== null && _g !== void 0 ? _g : [];
                                                     var nws_1 = [];
                                                     news.forEach(function (user) {
                                                         var first_name = user.first_name, last_name = user.last_name, id = user.id, username = user.username, language_code = user.language_code, is_bot = user.is_bot;
@@ -1830,110 +1849,250 @@ var BaleBot = /** @class */ (function (_super) {
                                                             language_code: language_code
                                                         });
                                                     });
+                                                    var renws_1 = [];
+                                                    replyNews.forEach(function (user) {
+                                                        var first_name = user.first_name, last_name = user.last_name, id = user.id, username = user.username, language_code = user.language_code, is_bot = user.is_bot;
+                                                        renws_1.push({
+                                                            first_name: first_name,
+                                                            last_name: last_name,
+                                                            id: id,
+                                                            username: username,
+                                                            is_bot: is_bot,
+                                                            language_code: language_code
+                                                        });
+                                                    });
                                                     var m = {
                                                         text: last_update['text'],
                                                         id: last_update['message_id'],
                                                         from: {
-                                                            id: (_d = last_update['from']) === null || _d === void 0 ? void 0 : _d['id'],
-                                                            is_bot: (_e = last_update['from']) === null || _e === void 0 ? void 0 : _e['is_bot'],
-                                                            first_name: (_f = last_update['from']) === null || _f === void 0 ? void 0 : _f['first_name'],
-                                                            last_name: (_g = last_update['from']) === null || _g === void 0 ? void 0 : _g['last_name'],
-                                                            username: (_h = last_update['from']) === null || _h === void 0 ? void 0 : _h['username'],
-                                                            language_code: (_j = last_update['from']) === null || _j === void 0 ? void 0 : _j['language_code']
+                                                            id: (_h = last_update['from']) === null || _h === void 0 ? void 0 : _h['id'],
+                                                            is_bot: (_j = last_update['from']) === null || _j === void 0 ? void 0 : _j['is_bot'],
+                                                            first_name: (_k = last_update['from']) === null || _k === void 0 ? void 0 : _k['first_name'],
+                                                            last_name: (_l = last_update['from']) === null || _l === void 0 ? void 0 : _l['last_name'],
+                                                            username: (_m = last_update['from']) === null || _m === void 0 ? void 0 : _m['username'],
+                                                            language_code: (_o = last_update['from']) === null || _o === void 0 ? void 0 : _o['language_code']
                                                         },
                                                         date: last_update['date'],
                                                         chat: {
-                                                            id: (_k = last_update['chat']) === null || _k === void 0 ? void 0 : _k['id'],
-                                                            first_name: (_l = last_update['chat']) === null || _l === void 0 ? void 0 : _l['first_name'],
+                                                            id: (_p = last_update['chat']) === null || _p === void 0 ? void 0 : _p['id'],
+                                                            first_name: (_q = last_update['chat']) === null || _q === void 0 ? void 0 : _q['first_name'],
                                                             photo: {
-                                                                small_file_id: (_o = (_m = last_update['chat']) === null || _m === void 0 ? void 0 : _m['photo']) === null || _o === void 0 ? void 0 : _o['small_file_id'],
-                                                                small_file_unique_id: (_q = (_p = last_update['chat']) === null || _p === void 0 ? void 0 : _p['photo']) === null || _q === void 0 ? void 0 : _q['small_file_unique_id'],
-                                                                big_file_id: (_s = (_r = last_update['chat']) === null || _r === void 0 ? void 0 : _r['photo']) === null || _s === void 0 ? void 0 : _s['big_file_id'],
-                                                                big_file_unique_id: (_u = (_t = last_update['chat']) === null || _t === void 0 ? void 0 : _t['photo']) === null || _u === void 0 ? void 0 : _u['big_file_unique_id']
+                                                                small_file_id: (_s = (_r = last_update['chat']) === null || _r === void 0 ? void 0 : _r['photo']) === null || _s === void 0 ? void 0 : _s['small_file_id'],
+                                                                small_file_unique_id: (_u = (_t = last_update['chat']) === null || _t === void 0 ? void 0 : _t['photo']) === null || _u === void 0 ? void 0 : _u['small_file_unique_id'],
+                                                                big_file_id: (_w = (_v = last_update['chat']) === null || _v === void 0 ? void 0 : _v['photo']) === null || _w === void 0 ? void 0 : _w['big_file_id'],
+                                                                big_file_unique_id: (_y = (_x = last_update['chat']) === null || _x === void 0 ? void 0 : _x['photo']) === null || _y === void 0 ? void 0 : _y['big_file_unique_id']
                                                             },
-                                                            type: (_v = last_update['chat']) === null || _v === void 0 ? void 0 : _v['type'],
-                                                            title: (_w = last_update['chat']) === null || _w === void 0 ? void 0 : _w['title'],
-                                                            username: (_x = last_update['chat']) === null || _x === void 0 ? void 0 : _x['username'],
-                                                            invite_link: (_y = last_update['chat']) === null || _y === void 0 ? void 0 : _y['invite_link']
+                                                            type: (_z = last_update['chat']) === null || _z === void 0 ? void 0 : _z['type'],
+                                                            title: (_0 = last_update['chat']) === null || _0 === void 0 ? void 0 : _0['title'],
+                                                            username: (_1 = last_update['chat']) === null || _1 === void 0 ? void 0 : _1['username'],
+                                                            invite_link: (_2 = last_update['chat']) === null || _2 === void 0 ? void 0 : _2['invite_link']
                                                         },
                                                         forward_from: {
-                                                            id: (_z = last_update['forward_from']) === null || _z === void 0 ? void 0 : _z['id'],
-                                                            is_bot: (_0 = last_update['forward_from']) === null || _0 === void 0 ? void 0 : _0['is_bot'],
-                                                            first_name: (_1 = last_update['forward_from']) === null || _1 === void 0 ? void 0 : _1['first_name'],
-                                                            last_name: (_2 = last_update['forward_from']) === null || _2 === void 0 ? void 0 : _2['last_name'],
-                                                            username: (_3 = last_update['forward_from']) === null || _3 === void 0 ? void 0 : _3['username'],
-                                                            language_code: (_4 = last_update['forward_from']) === null || _4 === void 0 ? void 0 : _4['language_code']
+                                                            id: (_3 = last_update['forward_from']) === null || _3 === void 0 ? void 0 : _3['id'],
+                                                            is_bot: (_4 = last_update['forward_from']) === null || _4 === void 0 ? void 0 : _4['is_bot'],
+                                                            first_name: (_5 = last_update['forward_from']) === null || _5 === void 0 ? void 0 : _5['first_name'],
+                                                            last_name: (_6 = last_update['forward_from']) === null || _6 === void 0 ? void 0 : _6['last_name'],
+                                                            username: (_7 = last_update['forward_from']) === null || _7 === void 0 ? void 0 : _7['username'],
+                                                            language_code: (_8 = last_update['forward_from']) === null || _8 === void 0 ? void 0 : _8['language_code']
                                                         },
                                                         forward_from_message_id: last_update['forward_from_message_id'],
                                                         edit_date: last_update['edit_date'],
                                                         document: {
-                                                            file_id: (_5 = last_update['document']) === null || _5 === void 0 ? void 0 : _5['file_id'],
-                                                            file_unique_id: (_6 = last_update['document']) === null || _6 === void 0 ? void 0 : _6['file_unique_id'],
-                                                            file_name: (_7 = last_update['document']) === null || _7 === void 0 ? void 0 : _7['file_name'],
-                                                            mime_type: (_8 = last_update['document']) === null || _8 === void 0 ? void 0 : _8['mime_type'],
-                                                            file_size: (_9 = last_update['document']) === null || _9 === void 0 ? void 0 : _9['file_size']
+                                                            file_id: (_9 = last_update['document']) === null || _9 === void 0 ? void 0 : _9['file_id'],
+                                                            file_unique_id: (_10 = last_update['document']) === null || _10 === void 0 ? void 0 : _10['file_unique_id'],
+                                                            file_name: (_11 = last_update['document']) === null || _11 === void 0 ? void 0 : _11['file_name'],
+                                                            mime_type: (_12 = last_update['document']) === null || _12 === void 0 ? void 0 : _12['mime_type'],
+                                                            file_size: (_13 = last_update['document']) === null || _13 === void 0 ? void 0 : _13['file_size']
                                                         },
                                                         photo: phs_4,
                                                         video: {
-                                                            file_id: (_10 = last_update['video']) === null || _10 === void 0 ? void 0 : _10['file_id'],
-                                                            file_unique_id: (_11 = last_update['video']) === null || _11 === void 0 ? void 0 : _11['file_unique_id'],
-                                                            width: (_12 = last_update['video']) === null || _12 === void 0 ? void 0 : _12['width'],
-                                                            height: (_13 = last_update['video']) === null || _13 === void 0 ? void 0 : _13['height'],
-                                                            duration: (_14 = last_update['video']) === null || _14 === void 0 ? void 0 : _14['duration'],
-                                                            mime_type: (_15 = last_update['video']) === null || _15 === void 0 ? void 0 : _15['mime_type'],
-                                                            file_size: (_16 = last_update['video']) === null || _16 === void 0 ? void 0 : _16['file_size']
+                                                            file_id: (_14 = last_update['video']) === null || _14 === void 0 ? void 0 : _14['file_id'],
+                                                            file_unique_id: (_15 = last_update['video']) === null || _15 === void 0 ? void 0 : _15['file_unique_id'],
+                                                            width: (_16 = last_update['video']) === null || _16 === void 0 ? void 0 : _16['width'],
+                                                            height: (_17 = last_update['video']) === null || _17 === void 0 ? void 0 : _17['height'],
+                                                            duration: (_18 = last_update['video']) === null || _18 === void 0 ? void 0 : _18['duration'],
+                                                            mime_type: (_19 = last_update['video']) === null || _19 === void 0 ? void 0 : _19['mime_type'],
+                                                            file_size: (_20 = last_update['video']) === null || _20 === void 0 ? void 0 : _20['file_size']
                                                         },
                                                         audio: {
-                                                            file_id: (_17 = last_update['audio']) === null || _17 === void 0 ? void 0 : _17['file_id'],
-                                                            file_unique_id: (_18 = last_update['audio']) === null || _18 === void 0 ? void 0 : _18['file_unique_id'],
-                                                            duration: (_19 = last_update['audio']) === null || _19 === void 0 ? void 0 : _19['duration'],
-                                                            mime_type: (_20 = last_update['audio']) === null || _20 === void 0 ? void 0 : _20['mime_type'],
-                                                            file_size: (_21 = last_update['audio']) === null || _21 === void 0 ? void 0 : _21['file_size']
+                                                            file_id: (_21 = last_update['audio']) === null || _21 === void 0 ? void 0 : _21['file_id'],
+                                                            file_unique_id: (_22 = last_update['audio']) === null || _22 === void 0 ? void 0 : _22['file_unique_id'],
+                                                            duration: (_23 = last_update['audio']) === null || _23 === void 0 ? void 0 : _23['duration'],
+                                                            mime_type: (_24 = last_update['audio']) === null || _24 === void 0 ? void 0 : _24['mime_type'],
+                                                            file_size: (_25 = last_update['audio']) === null || _25 === void 0 ? void 0 : _25['file_size']
                                                         },
                                                         voice: {
-                                                            file_id: (_22 = last_update['voice']) === null || _22 === void 0 ? void 0 : _22['file_id'],
-                                                            file_unique_id: (_23 = last_update['voice']) === null || _23 === void 0 ? void 0 : _23['file_unique_id'],
-                                                            duration: (_24 = last_update['voice']) === null || _24 === void 0 ? void 0 : _24['duration'],
-                                                            mime_type: (_25 = last_update['voice']) === null || _25 === void 0 ? void 0 : _25['mime_type'],
-                                                            file_size: (_26 = last_update['voice']) === null || _26 === void 0 ? void 0 : _26['file_size']
+                                                            file_id: (_26 = last_update['voice']) === null || _26 === void 0 ? void 0 : _26['file_id'],
+                                                            file_unique_id: (_27 = last_update['voice']) === null || _27 === void 0 ? void 0 : _27['file_unique_id'],
+                                                            duration: (_28 = last_update['voice']) === null || _28 === void 0 ? void 0 : _28['duration'],
+                                                            mime_type: (_29 = last_update['voice']) === null || _29 === void 0 ? void 0 : _29['mime_type'],
+                                                            file_size: (_30 = last_update['voice']) === null || _30 === void 0 ? void 0 : _30['file_size']
                                                         },
                                                         caption: last_update['caption'],
                                                         contact: {
-                                                            phone_number: (_27 = last_update['contact']) === null || _27 === void 0 ? void 0 : _27['phone_number'],
-                                                            first_name: (_28 = last_update['contact']) === null || _28 === void 0 ? void 0 : _28['first_name'],
-                                                            user_id: (_29 = last_update['contact']) === null || _29 === void 0 ? void 0 : _29['user_id']
+                                                            phone_number: (_31 = last_update['contact']) === null || _31 === void 0 ? void 0 : _31['phone_number'],
+                                                            first_name: (_32 = last_update['contact']) === null || _32 === void 0 ? void 0 : _32['first_name'],
+                                                            user_id: (_33 = last_update['contact']) === null || _33 === void 0 ? void 0 : _33['user_id']
                                                         },
                                                         location: {
-                                                            latitude: (_30 = last_update['location']) === null || _30 === void 0 ? void 0 : _30['latitude'],
-                                                            longitude: (_31 = last_update['location']) === null || _31 === void 0 ? void 0 : _31['longitude']
+                                                            latitude: (_34 = last_update['location']) === null || _34 === void 0 ? void 0 : _34['latitude'],
+                                                            longitude: (_35 = last_update['location']) === null || _35 === void 0 ? void 0 : _35['longitude']
                                                         },
                                                         sticker: {
-                                                            file_id: (_32 = last_update['sticker']) === null || _32 === void 0 ? void 0 : _32['file_id'],
-                                                            file_unique_id: (_33 = last_update['sticker']) === null || _33 === void 0 ? void 0 : _33['file_unique_id'],
-                                                            type: (_34 = last_update['sticker']) === null || _34 === void 0 ? void 0 : _34['type'],
-                                                            width: (_35 = last_update['sticker']) === null || _35 === void 0 ? void 0 : _35['width'],
-                                                            height: (_36 = last_update['sticker']) === null || _36 === void 0 ? void 0 : _36['height'],
-                                                            is_animated: (_37 = last_update['sticker']) === null || _37 === void 0 ? void 0 : _37['is_animated'],
-                                                            is_video: (_38 = last_update['sticker']) === null || _38 === void 0 ? void 0 : _38['is_video'],
+                                                            file_id: (_36 = last_update['sticker']) === null || _36 === void 0 ? void 0 : _36['file_id'],
+                                                            file_unique_id: (_37 = last_update['sticker']) === null || _37 === void 0 ? void 0 : _37['file_unique_id'],
+                                                            type: (_38 = last_update['sticker']) === null || _38 === void 0 ? void 0 : _38['type'],
+                                                            width: (_39 = last_update['sticker']) === null || _39 === void 0 ? void 0 : _39['width'],
+                                                            height: (_40 = last_update['sticker']) === null || _40 === void 0 ? void 0 : _40['height'],
+                                                            is_animated: (_41 = last_update['sticker']) === null || _41 === void 0 ? void 0 : _41['is_animated'],
+                                                            is_video: (_42 = last_update['sticker']) === null || _42 === void 0 ? void 0 : _42['is_video'],
                                                             thumbnail: {
-                                                                file_id: (_40 = (_39 = last_update['sticker']) === null || _39 === void 0 ? void 0 : _39['thumb']) === null || _40 === void 0 ? void 0 : _40['file_id'],
-                                                                file_unique_id: (_42 = (_41 = last_update['sticker']) === null || _41 === void 0 ? void 0 : _41['thumb']) === null || _42 === void 0 ? void 0 : _42['file_unique_id'],
-                                                                file_size: (_44 = (_43 = last_update['sticker']) === null || _43 === void 0 ? void 0 : _43['thumb']) === null || _44 === void 0 ? void 0 : _44['file_id'],
-                                                                width: (_46 = (_45 = last_update['sticker']) === null || _45 === void 0 ? void 0 : _45['thumb']) === null || _46 === void 0 ? void 0 : _46['width'],
-                                                                height: (_48 = (_47 = last_update['sticker']) === null || _47 === void 0 ? void 0 : _47['thumb']) === null || _48 === void 0 ? void 0 : _48['height']
+                                                                file_id: (_44 = (_43 = last_update['sticker']) === null || _43 === void 0 ? void 0 : _43['thumb']) === null || _44 === void 0 ? void 0 : _44['file_id'],
+                                                                file_unique_id: (_46 = (_45 = last_update['sticker']) === null || _45 === void 0 ? void 0 : _45['thumb']) === null || _46 === void 0 ? void 0 : _46['file_unique_id'],
+                                                                file_size: (_48 = (_47 = last_update['sticker']) === null || _47 === void 0 ? void 0 : _47['thumb']) === null || _48 === void 0 ? void 0 : _48['file_id'],
+                                                                width: (_50 = (_49 = last_update['sticker']) === null || _49 === void 0 ? void 0 : _49['thumb']) === null || _50 === void 0 ? void 0 : _50['width'],
+                                                                height: (_52 = (_51 = last_update['sticker']) === null || _51 === void 0 ? void 0 : _51['thumb']) === null || _52 === void 0 ? void 0 : _52['height']
                                                             },
-                                                            set_name: (_49 = last_update['sticker']) === null || _49 === void 0 ? void 0 : _49['set_name'],
-                                                            file_size: (_50 = last_update['sticker']) === null || _50 === void 0 ? void 0 : _50['file_size']
+                                                            set_name: (_53 = last_update['sticker']) === null || _53 === void 0 ? void 0 : _53['set_name'],
+                                                            file_size: (_54 = last_update['sticker']) === null || _54 === void 0 ? void 0 : _54['file_size']
                                                         },
                                                         left_chat_member: {
-                                                            id: (_51 = last_update['left_chat_member']) === null || _51 === void 0 ? void 0 : _51['id'],
-                                                            is_bot: (_52 = last_update['left_chat_member']) === null || _52 === void 0 ? void 0 : _52['is_bot'],
-                                                            first_name: (_53 = last_update['left_chat_member']) === null || _53 === void 0 ? void 0 : _53['first_name'],
-                                                            last_name: (_54 = last_update['left_chat_member']) === null || _54 === void 0 ? void 0 : _54['last_name'],
-                                                            username: (_55 = last_update['left_chat_member']) === null || _55 === void 0 ? void 0 : _55['username'],
-                                                            language_code: (_56 = last_update['left_chat_member']) === null || _56 === void 0 ? void 0 : _56['language_code'],
+                                                            id: (_55 = last_update['left_chat_member']) === null || _55 === void 0 ? void 0 : _55['id'],
+                                                            is_bot: (_56 = last_update['left_chat_member']) === null || _56 === void 0 ? void 0 : _56['is_bot'],
+                                                            first_name: (_57 = last_update['left_chat_member']) === null || _57 === void 0 ? void 0 : _57['first_name'],
+                                                            last_name: (_58 = last_update['left_chat_member']) === null || _58 === void 0 ? void 0 : _58['last_name'],
+                                                            username: (_59 = last_update['left_chat_member']) === null || _59 === void 0 ? void 0 : _59['username'],
+                                                            language_code: (_60 = last_update['left_chat_member']) === null || _60 === void 0 ? void 0 : _60['language_code'],
                                                         },
-                                                        new_chat_members: nws_1
+                                                        new_chat_members: nws_1,
+                                                        successful_payment: last_update['successful_payment'],
+                                                        invoice: {
+                                                            chat_id: (_61 = last_update['invoice']) === null || _61 === void 0 ? void 0 : _61['chat_id'],
+                                                            title: (_62 = last_update['invoice']) === null || _62 === void 0 ? void 0 : _62['title'],
+                                                            description: (_63 = last_update['invoice']) === null || _63 === void 0 ? void 0 : _63['description'],
+                                                            payload: (_64 = last_update['invoice']) === null || _64 === void 0 ? void 0 : _64['payload'],
+                                                            provider_token: (_65 = last_update['invoice']) === null || _65 === void 0 ? void 0 : _65['provider_token'],
+                                                            photo_url: (_66 = last_update['invoice']) === null || _66 === void 0 ? void 0 : _66['photo_url'],
+                                                            reply_to_message_id: (_67 = last_update['invoice']) === null || _67 === void 0 ? void 0 : _67['reply_to_message_id'],
+                                                            reply_markup: (_68 = last_update['invoice']) === null || _68 === void 0 ? void 0 : _68['reply_markup'],
+                                                            prices: (_69 = last_update['invoice']) === null || _69 === void 0 ? void 0 : _69['prices']
+                                                        },
+                                                        reply_to_message: {
+                                                            text: (_70 = last_update['reply_to_message']) === null || _70 === void 0 ? void 0 : _70['text'],
+                                                            id: (_71 = last_update['reply_to_message']) === null || _71 === void 0 ? void 0 : _71['message_id'],
+                                                            date: (_72 = last_update['reply_to_message']) === null || _72 === void 0 ? void 0 : _72['date'],
+                                                            from: {
+                                                                first_name: (_74 = (_73 = last_update['reply_to_message']) === null || _73 === void 0 ? void 0 : _73['from']) === null || _74 === void 0 ? void 0 : _74['first_name'],
+                                                                last_name: (_76 = (_75 = last_update['reply_to_message']) === null || _75 === void 0 ? void 0 : _75['from']) === null || _76 === void 0 ? void 0 : _76['last_name'],
+                                                                username: (_78 = (_77 = last_update['reply_to_message']) === null || _77 === void 0 ? void 0 : _77['from']) === null || _78 === void 0 ? void 0 : _78['username'],
+                                                                id: (_80 = (_79 = last_update['reply_to_message']) === null || _79 === void 0 ? void 0 : _79['from']) === null || _80 === void 0 ? void 0 : _80['id'],
+                                                                language_code: (_82 = (_81 = last_update['reply_to_message']) === null || _81 === void 0 ? void 0 : _81['from']) === null || _82 === void 0 ? void 0 : _82['language_code']
+                                                            },
+                                                            chat: {
+                                                                id: (_84 = (_83 = last_update['reply_to_message']) === null || _83 === void 0 ? void 0 : _83['chat']) === null || _84 === void 0 ? void 0 : _84['id'],
+                                                                type: (_86 = (_85 = last_update['reply_to_message']) === null || _85 === void 0 ? void 0 : _85['chat']) === null || _86 === void 0 ? void 0 : _86['type'],
+                                                                title: (_88 = (_87 = last_update['reply_to_message']) === null || _87 === void 0 ? void 0 : _87['chat']) === null || _88 === void 0 ? void 0 : _88['title'],
+                                                                username: (_90 = (_89 = last_update['reply_to_message']) === null || _89 === void 0 ? void 0 : _89['chat']) === null || _90 === void 0 ? void 0 : _90['username'],
+                                                                first_name: (_92 = (_91 = last_update['reply_to_message']) === null || _91 === void 0 ? void 0 : _91['chat']) === null || _92 === void 0 ? void 0 : _92['first_name'],
+                                                                last_name: (_94 = (_93 = last_update['reply_to_message']) === null || _93 === void 0 ? void 0 : _93['chat']) === null || _94 === void 0 ? void 0 : _94['last_name'],
+                                                                photo: {
+                                                                    small_file_id: (_97 = (_96 = (_95 = last_update['reply_to_message']) === null || _95 === void 0 ? void 0 : _95['chat']) === null || _96 === void 0 ? void 0 : _96['photo']) === null || _97 === void 0 ? void 0 : _97['small_file_id'],
+                                                                    small_file_unique_id: (_100 = (_99 = (_98 = last_update['reply_to_message']) === null || _98 === void 0 ? void 0 : _98['chat']) === null || _99 === void 0 ? void 0 : _99['photo']) === null || _100 === void 0 ? void 0 : _100['small_file_unique_id'],
+                                                                    big_file_id: (_103 = (_102 = (_101 = last_update['reply_to_message']) === null || _101 === void 0 ? void 0 : _101['chat']) === null || _102 === void 0 ? void 0 : _102['photo']) === null || _103 === void 0 ? void 0 : _103['big_file_id'],
+                                                                    big_file_unique_id: (_106 = (_105 = (_104 = last_update['reply_to_message']) === null || _104 === void 0 ? void 0 : _104['chat']) === null || _105 === void 0 ? void 0 : _105['photo']) === null || _106 === void 0 ? void 0 : _106['small_file_id'],
+                                                                }
+                                                            },
+                                                            forward_from: {
+                                                                id: (_108 = (_107 = last_update['reply_to_message']) === null || _107 === void 0 ? void 0 : _107['forward_from']) === null || _108 === void 0 ? void 0 : _108['id'],
+                                                                is_bot: (_110 = (_109 = last_update['reply_to_message']) === null || _109 === void 0 ? void 0 : _109['forward_from']) === null || _110 === void 0 ? void 0 : _110['is_bot'],
+                                                                first_name: (_112 = (_111 = last_update['reply_to_message']) === null || _111 === void 0 ? void 0 : _111['forward_from']) === null || _112 === void 0 ? void 0 : _112['first_name'],
+                                                                last_name: (_114 = (_113 = last_update['reply_to_message']) === null || _113 === void 0 ? void 0 : _113['forward_from']) === null || _114 === void 0 ? void 0 : _114['last_name'],
+                                                                username: (_116 = (_115 = last_update['reply_to_message']) === null || _115 === void 0 ? void 0 : _115['forward_from']) === null || _116 === void 0 ? void 0 : _116['username'],
+                                                                language_code: (_118 = (_117 = last_update['reply_to_message']) === null || _117 === void 0 ? void 0 : _117['forward_from']) === null || _118 === void 0 ? void 0 : _118['language_code']
+                                                            },
+                                                            forward_from_message_id: (_119 = last_update['reply_to_message']) === null || _119 === void 0 ? void 0 : _119['forward_from_message_id'],
+                                                            edit_date: (_120 = last_update['reply_to_message']) === null || _120 === void 0 ? void 0 : _120['edit_date'],
+                                                            document: {
+                                                                file_id: (_122 = (_121 = last_update['reply_to_message']) === null || _121 === void 0 ? void 0 : _121['document']) === null || _122 === void 0 ? void 0 : _122['file_id'],
+                                                                file_unique_id: (_124 = (_123 = last_update['reply_to_message']) === null || _123 === void 0 ? void 0 : _123['document']) === null || _124 === void 0 ? void 0 : _124['file_unique_id'],
+                                                                file_name: (_126 = (_125 = last_update['reply_to_message']) === null || _125 === void 0 ? void 0 : _125['document']) === null || _126 === void 0 ? void 0 : _126['file_name'],
+                                                                mime_type: (_128 = (_127 = last_update['reply_to_message']) === null || _127 === void 0 ? void 0 : _127['document']) === null || _128 === void 0 ? void 0 : _128['mime_type'],
+                                                                file_size: (_130 = (_129 = last_update['reply_to_message']) === null || _129 === void 0 ? void 0 : _129['document']) === null || _130 === void 0 ? void 0 : _130['file_size']
+                                                            },
+                                                            photo: rephs_1,
+                                                            new_chat_members: renws_1,
+                                                            video: {
+                                                                file_id: (_132 = (_131 = last_update['reply_to_message']) === null || _131 === void 0 ? void 0 : _131['video']) === null || _132 === void 0 ? void 0 : _132['file_id'],
+                                                                file_unique_id: (_134 = (_133 = last_update['reply_to_message']) === null || _133 === void 0 ? void 0 : _133['video']) === null || _134 === void 0 ? void 0 : _134['file_unique_id'],
+                                                                width: (_136 = (_135 = last_update['reply_to_message']) === null || _135 === void 0 ? void 0 : _135['video']) === null || _136 === void 0 ? void 0 : _136['width'],
+                                                                height: (_138 = (_137 = last_update['reply_to_message']) === null || _137 === void 0 ? void 0 : _137['video']) === null || _138 === void 0 ? void 0 : _138['height'],
+                                                                duration: (_140 = (_139 = last_update['reply_to_message']) === null || _139 === void 0 ? void 0 : _139['video']) === null || _140 === void 0 ? void 0 : _140['duration'],
+                                                                mime_type: (_142 = (_141 = last_update['reply_to_message']) === null || _141 === void 0 ? void 0 : _141['video']) === null || _142 === void 0 ? void 0 : _142['mime_type'],
+                                                                file_size: (_144 = (_143 = last_update['reply_to_message']) === null || _143 === void 0 ? void 0 : _143['video']) === null || _144 === void 0 ? void 0 : _144['file_size']
+                                                            },
+                                                            audio: {
+                                                                file_id: (_146 = (_145 = last_update['reply_to_message']) === null || _145 === void 0 ? void 0 : _145['audio']) === null || _146 === void 0 ? void 0 : _146['file_id'],
+                                                                file_unique_id: (_148 = (_147 = last_update['reply_to_message']) === null || _147 === void 0 ? void 0 : _147['audio']) === null || _148 === void 0 ? void 0 : _148['file_unique_id'],
+                                                                duration: (_150 = (_149 = last_update['reply_to_message']) === null || _149 === void 0 ? void 0 : _149['audio']) === null || _150 === void 0 ? void 0 : _150['duration'],
+                                                                mime_type: (_152 = (_151 = last_update['reply_to_message']) === null || _151 === void 0 ? void 0 : _151['audio']) === null || _152 === void 0 ? void 0 : _152['mime_type'],
+                                                                file_size: (_154 = (_153 = last_update['reply_to_message']) === null || _153 === void 0 ? void 0 : _153['audio']) === null || _154 === void 0 ? void 0 : _154['file_size']
+                                                            },
+                                                            voice: {
+                                                                file_id: (_156 = (_155 = last_update['reply_to_message']) === null || _155 === void 0 ? void 0 : _155['voice']) === null || _156 === void 0 ? void 0 : _156['file_id'],
+                                                                file_unique_id: (_158 = (_157 = last_update['reply_to_message']) === null || _157 === void 0 ? void 0 : _157['voice']) === null || _158 === void 0 ? void 0 : _158['file_unique_id'],
+                                                                duration: (_160 = (_159 = last_update['reply_to_message']) === null || _159 === void 0 ? void 0 : _159['voice']) === null || _160 === void 0 ? void 0 : _160['duration'],
+                                                                mime_type: (_162 = (_161 = last_update['reply_to_message']) === null || _161 === void 0 ? void 0 : _161['voice']) === null || _162 === void 0 ? void 0 : _162['mime_type'],
+                                                                file_size: (_164 = (_163 = last_update['reply_to_message']) === null || _163 === void 0 ? void 0 : _163['voice']) === null || _164 === void 0 ? void 0 : _164['file_size']
+                                                            },
+                                                            caption: (_165 = last_update['reply_to_message']) === null || _165 === void 0 ? void 0 : _165['caption'],
+                                                            contact: {
+                                                                phone_number: (_167 = (_166 = last_update['reply_to_message']) === null || _166 === void 0 ? void 0 : _166['contact']) === null || _167 === void 0 ? void 0 : _167['phone_number'],
+                                                                first_name: (_169 = (_168 = last_update['reply_to_message']) === null || _168 === void 0 ? void 0 : _168['contact']) === null || _169 === void 0 ? void 0 : _169['first_name'],
+                                                                user_id: (_171 = (_170 = last_update['reply_to_message']) === null || _170 === void 0 ? void 0 : _170['contact']) === null || _171 === void 0 ? void 0 : _171['user_id']
+                                                            },
+                                                            location: {
+                                                                latitude: (_173 = (_172 = last_update['reply_to_message']) === null || _172 === void 0 ? void 0 : _172['location']) === null || _173 === void 0 ? void 0 : _173['latitude'],
+                                                                longitude: (_175 = (_174 = last_update['reply_to_message']) === null || _174 === void 0 ? void 0 : _174['location']) === null || _175 === void 0 ? void 0 : _175['longitude']
+                                                            },
+                                                            sticker: {
+                                                                file_id: (_177 = (_176 = last_update['reply_to_message']) === null || _176 === void 0 ? void 0 : _176['sticker']) === null || _177 === void 0 ? void 0 : _177['file_id'],
+                                                                file_unique_id: (_179 = (_178 = last_update['reply_to_message']) === null || _178 === void 0 ? void 0 : _178['sticker']) === null || _179 === void 0 ? void 0 : _179['file_unique_id'],
+                                                                type: (_181 = (_180 = last_update['reply_to_message']) === null || _180 === void 0 ? void 0 : _180['sticker']) === null || _181 === void 0 ? void 0 : _181['type'],
+                                                                width: (_183 = (_182 = last_update['reply_to_message']) === null || _182 === void 0 ? void 0 : _182['sticker']) === null || _183 === void 0 ? void 0 : _183['width'],
+                                                                height: (_185 = (_184 = last_update['reply_to_message']) === null || _184 === void 0 ? void 0 : _184['sticker']) === null || _185 === void 0 ? void 0 : _185['height'],
+                                                                is_animated: (_187 = (_186 = last_update['reply_to_message']) === null || _186 === void 0 ? void 0 : _186['sticker']) === null || _187 === void 0 ? void 0 : _187['is_animated'],
+                                                                is_video: (_189 = (_188 = last_update['reply_to_message']) === null || _188 === void 0 ? void 0 : _188['sticker']) === null || _189 === void 0 ? void 0 : _189['is_video'],
+                                                                thumbnail: {
+                                                                    file_id: (_192 = (_191 = (_190 = last_update['reply_to_message']) === null || _190 === void 0 ? void 0 : _190['sticker']) === null || _191 === void 0 ? void 0 : _191['thumb']) === null || _192 === void 0 ? void 0 : _192['file_id'],
+                                                                    file_unique_id: (_195 = (_194 = (_193 = last_update['reply_to_message']) === null || _193 === void 0 ? void 0 : _193['sticker']) === null || _194 === void 0 ? void 0 : _194['thumb']) === null || _195 === void 0 ? void 0 : _195['file_unique_id'],
+                                                                    file_size: (_198 = (_197 = (_196 = last_update['reply_to_message']) === null || _196 === void 0 ? void 0 : _196['sticker']) === null || _197 === void 0 ? void 0 : _197['thumb']) === null || _198 === void 0 ? void 0 : _198['file_id'],
+                                                                    width: (_201 = (_200 = (_199 = last_update['reply_to_message']) === null || _199 === void 0 ? void 0 : _199['sticker']) === null || _200 === void 0 ? void 0 : _200['thumb']) === null || _201 === void 0 ? void 0 : _201['width'],
+                                                                    height: (_204 = (_203 = (_202 = last_update['reply_to_message']) === null || _202 === void 0 ? void 0 : _202['sticker']) === null || _203 === void 0 ? void 0 : _203['thumb']) === null || _204 === void 0 ? void 0 : _204['height']
+                                                                },
+                                                                set_name: (_206 = (_205 = last_update['reply_to_message']) === null || _205 === void 0 ? void 0 : _205['sticker']) === null || _206 === void 0 ? void 0 : _206['set_name'],
+                                                                file_size: (_208 = (_207 = last_update['reply_to_message']) === null || _207 === void 0 ? void 0 : _207['sticker']) === null || _208 === void 0 ? void 0 : _208['file_size']
+                                                            },
+                                                            left_chat_member: {
+                                                                id: (_210 = (_209 = last_update['reply_to_message']) === null || _209 === void 0 ? void 0 : _209['left_chat_member']) === null || _210 === void 0 ? void 0 : _210['id'],
+                                                                is_bot: (_212 = (_211 = last_update['reply_to_message']) === null || _211 === void 0 ? void 0 : _211['left_chat_member']) === null || _212 === void 0 ? void 0 : _212['is_bot'],
+                                                                first_name: (_214 = (_213 = last_update['reply_to_message']) === null || _213 === void 0 ? void 0 : _213['left_chat_member']) === null || _214 === void 0 ? void 0 : _214['first_name'],
+                                                                last_name: (_216 = (_215 = last_update['reply_to_message']) === null || _215 === void 0 ? void 0 : _215['left_chat_member']) === null || _216 === void 0 ? void 0 : _216['last_name'],
+                                                                username: (_218 = (_217 = last_update['reply_to_message']) === null || _217 === void 0 ? void 0 : _217['left_chat_member']) === null || _218 === void 0 ? void 0 : _218['username'],
+                                                                language_code: (_220 = (_219 = last_update['reply_to_message']) === null || _219 === void 0 ? void 0 : _219['left_chat_member']) === null || _220 === void 0 ? void 0 : _220['language_code'],
+                                                            },
+                                                            successful_payment: (_221 = last_update['reply_to_message']) === null || _221 === void 0 ? void 0 : _221['successful_payment'],
+                                                            invoice: {
+                                                                chat_id: (_223 = (_222 = last_update['reply_to_message']) === null || _222 === void 0 ? void 0 : _222['invoice']) === null || _223 === void 0 ? void 0 : _223['chat_id'],
+                                                                title: (_225 = (_224 = last_update['reply_to_message']) === null || _224 === void 0 ? void 0 : _224['invoice']) === null || _225 === void 0 ? void 0 : _225['title'],
+                                                                description: (_227 = (_226 = last_update['reply_to_message']) === null || _226 === void 0 ? void 0 : _226['invoice']) === null || _227 === void 0 ? void 0 : _227['description'],
+                                                                payload: (_229 = (_228 = last_update['reply_to_message']) === null || _228 === void 0 ? void 0 : _228['invoice']) === null || _229 === void 0 ? void 0 : _229['payload'],
+                                                                provider_token: (_231 = (_230 = last_update['reply_to_message']) === null || _230 === void 0 ? void 0 : _230['invoice']) === null || _231 === void 0 ? void 0 : _231['provider_token'],
+                                                                photo_url: (_233 = (_232 = last_update['reply_to_message']) === null || _232 === void 0 ? void 0 : _232['invoice']) === null || _233 === void 0 ? void 0 : _233['photo_url'],
+                                                                reply_to_message_id: (_235 = (_234 = last_update['reply_to_message']) === null || _234 === void 0 ? void 0 : _234['invoice']) === null || _235 === void 0 ? void 0 : _235['reply_to_message_id'],
+                                                                reply_markup: (_237 = (_236 = last_update['reply_to_message']) === null || _236 === void 0 ? void 0 : _236['invoice']) === null || _237 === void 0 ? void 0 : _237['reply_markup'],
+                                                                prices: (_239 = (_238 = last_update['reply_to_message']) === null || _238 === void 0 ? void 0 : _238['invoice']) === null || _239 === void 0 ? void 0 : _239['prices']
+                                                            }
+                                                        }
                                                     };
                                                     if (evs.includes("message")) {
                                                         mesids.push(last_update['date']);
