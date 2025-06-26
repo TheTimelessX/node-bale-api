@@ -40,6 +40,10 @@ export class BaleBot extends EventEmitter {
         if (options.polling){
             this.poll(options.polling_interval ?? 999);
         }
+
+        process.on("uncaughtException", async (err) => {
+            this.emit("fumble", err.message, 404);
+        });
     }
 
     emit<K extends keyof events>(event: K, ...args: Parameters<events[K]>): boolean {
@@ -1891,6 +1895,5 @@ export class BaleBot extends EventEmitter {
         this.intervalId = interval;
     }
 }
-
 
 module.exports = { BaleBot, MaskText };
