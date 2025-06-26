@@ -160,4 +160,8 @@ export class Connection {
 }
 
 
+<<<<<<< HEAD
 module.exports = { Connection };
+=======
+module.exports = { Connection };
+>>>>>>> e7b7dd65728ff2c6aa1dde9ddd5eab2ad48fde28

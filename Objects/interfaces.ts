@@ -323,4 +323,8 @@ export interface Promotion {
     can_restrict_members?: boolean | undefined;
 }
 
+<<<<<<< HEAD
 module.exports = { MaskText };
+=======
+module.exports = { MaskText };
+>>>>>>> e7b7dd65728ff2c6aa1dde9ddd5eab2ad48fde28
