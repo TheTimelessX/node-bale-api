@@ -1,6 +1,7 @@
 export type chatTypes = 'private' | 'group' | 'channel';
 export type stickerTypes = 'regular' | 'mask';
 export type medias = "photo" | "video" | "animation" | "audio" | "voice" | "document";
+export type inputMedias = "audio" | "document" | "photo" | "video" | "animation";
 export type MessageTypes = 
   | 'message'
   | 'photo'
@@ -195,7 +196,7 @@ export interface Invoice {
 }
 
 export interface CallbackQuery {
-    id?: number | undefined;
+    id?: string | undefined;
     from?: User | undefined;
     data?: string | undefined;
     inline_message_id?: number | undefined;
@@ -233,6 +234,84 @@ export interface ReplyToMessage {
 
 export interface MessageForm extends ReplyToMessage {
     reply_to_message?: ReplyToMessage | undefined;
+}
+
+export interface WebhookReturner {
+    ok?: boolean;
+    result?: boolean | string | any;
+}
+
+export interface Webhook {
+    url?: string;
+    has_custom_certificate?: boolean;
+    pending_update_count?: number;
+}
+
+export interface CopyMessage {
+    message_id?: number;
+    from?: User | undefined;
+    chat?: Chat | undefined;
+    date?: number;
+}
+
+export interface InputMediaPhoto {
+    type: inputMedias;
+    media: string;
+    caption?: string;
+}
+
+export interface InputMediaVideo {
+    type: inputMedias;
+    media: string;
+    thumbnail?: string;
+    caption?: string;
+    height?: number;
+    width?: number;
+    duration?: number;
+}
+
+export interface InputMediaAnimation extends InputMediaVideo {}
+
+export interface InputMediaAudio {
+    type: inputMedias;
+    media: string;
+    thumbnail?: string;
+    caption?: string;
+    title?: string;
+    duration?: number;
+}
+
+export interface InputMediaDocument {
+    type: inputMedias;
+    media: string;
+    thumbnail?: string;
+    caption?: string;
+}
+
+export interface Media {
+    media: InputMediaPhoto[] | InputMediaVideo[] | InputMediaAnimation[] | InputMediaAudio[] | InputMediaDocument[];
+}
+
+export interface MediaOutput {
+    message_id?: number;
+    from?: User | undefined;
+    chat?: Chat | undefined;
+    date?: number;
+    media_group_id?: string;
+}
+
+export interface SendMediaGroupOptions {
+    reply_to_message_id?: number;
+}
+
+export interface CallbackQueryOptions {
+    text?: string;
+    show_alert?: boolean;
+}
+
+export interface CallbackQueryAnswer {
+    ok?: boolean;
+    result?: boolean;
 }
 
 type keyboardTypes = "inline_keyboard" | "keyboard";

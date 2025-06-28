@@ -89,6 +89,37 @@ var Connection = /** @class */ (function () {
             });
         });
     };
+    Connection.prototype.makeConnectionMultiPart = function (method, inputes, callback) {
+        return __awaiter(this, void 0, void 0, function () {
+            var url, _, res, e_2;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        _a.trys.push([0, 3, , 4]);
+                        url = this.url + "/".concat(method);
+                        return [4 /*yield*/, fetch(url, {
+                                method: "POST",
+                                body: JSON.stringify(inputes),
+                                headers: {
+                                    "Content-Type": "multipart/form-data"
+                                }
+                            })];
+                    case 1:
+                        _ = _a.sent();
+                        return [4 /*yield*/, _.json()];
+                    case 2:
+                        res = _a.sent();
+                        callback(res);
+                        return [3 /*break*/, 4];
+                    case 3:
+                        e_2 = _a.sent();
+                        callback({ ok: false, message: e_2 });
+                        return [3 /*break*/, 4];
+                    case 4: return [2 /*return*/];
+                }
+            });
+        });
+    };
     Connection.prototype.toTitleCase = function (str) {
         return str
             .toLowerCase()
@@ -237,7 +268,7 @@ var Connection = /** @class */ (function () {
     };
     Connection.prototype.fileConnection = function (filePath_1) {
         return __awaiter(this, arguments, void 0, function (filePath, callback) {
-            var url, _, res, e_2;
+            var url, _, res, e_3;
             if (callback === void 0) { callback = function (data) { }; }
             return __generator(this, function (_a) {
                 switch (_a.label) {
@@ -258,8 +289,8 @@ var Connection = /** @class */ (function () {
                         callback(res);
                         return [3 /*break*/, 4];
                     case 3:
-                        e_2 = _a.sent();
-                        callback({ ok: false, message: e_2 });
+                        e_3 = _a.sent();
+                        callback({ ok: false, message: e_3 });
                         return [3 /*break*/, 4];
                     case 4: return [2 /*return*/];
                 }

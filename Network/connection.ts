@@ -36,6 +36,27 @@ export class Connection {
         }
     }
 
+    async makeConnectionMultiPart(
+        method: string,
+        inputes: any,
+        callback: (RESULT: any) => void
+    ){
+        try{
+            const url = this.url+`/${method}`;
+            const _ = await fetch(url, {
+                method: "POST",
+                body: JSON.stringify(inputes),
+                headers: {
+                    "Content-Type": "multipart/form-data"
+                }
+            });
+            const res = await _.json();
+            callback(res);
+        } catch (e) {
+            callback({ok: false, message: e});
+        }
+    }
+
     toTitleCase(str: string): string {
         return str
           .toLowerCase()
