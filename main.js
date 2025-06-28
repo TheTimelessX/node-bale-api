@@ -2593,33 +2593,3 @@ var BaleBot = /** @class */ (function (_super) {
 }(events_1.EventEmitter));
 exports.BaleBot = BaleBot;
 module.exports = { BaleBot: BaleBot, MaskText: interfaces_1.MaskText };
-var ng = new BaleBot("251645330:pvcQSw9aK6kHO2uZwbD3jTIjUgsZ1aIlpckPkVsm", { polling: true, polling_interval: 103 });
-// ng.sendMessage(554324725, "ggg", {
-//     keyboard_mode: "inline_keyboard",
-//     reply_markup: [
-//         [
-//             {
-//                 text: "hi",
-//                 callback_data: "kkkk"
-//             }
-//         ]
-//     ]
-// }, (cl) => {
-//     console.log(cl)
-// })
-// ng.on("message", async (msg) => {
-//     console.log(msg.text);
-// })
-ng.on("callback_query", function (cl) { return __awaiter(void 0, void 0, void 0, function () {
-    return __generator(this, function (_a) {
-        ng.answerCallbackQuery(cl.id, {
-            text: "Hello world",
-        }, function (clback) {
-            console.log(clback);
-        });
-        return [2 /*return*/];
-    });
-}); });
-ng.on("fumble", function (emsg, ecode) {
-    console.log(emsg, ecode);
-});
