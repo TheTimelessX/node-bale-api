@@ -1121,8 +1121,8 @@ var BaleBot = /** @class */ (function (_super) {
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0: return [4 /*yield*/, this.request.makeConnection("getChat", { chat_id: chatId }, function (res) { return __awaiter(_this, void 0, void 0, function () {
-                            var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o, _p;
-                            return __generator(this, function (_q) {
+                            var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o, _p, _q;
+                            return __generator(this, function (_r) {
                                 if (res.ok) {
                                     callback({
                                         first_name: (_a = res['result']) === null || _a === void 0 ? void 0 : _a['first_name'],
@@ -1131,11 +1131,12 @@ var BaleBot = /** @class */ (function (_super) {
                                         title: (_d = res['result']) === null || _d === void 0 ? void 0 : _d['title'],
                                         invite_link: (_e = res['result']) === null || _e === void 0 ? void 0 : _e['invite_link'],
                                         username: (_f = res['result']) === null || _f === void 0 ? void 0 : _f['username'],
+                                        type: (_g = res['result']) === null || _g === void 0 ? void 0 : _g['type'],
                                         photo: {
-                                            big_file_id: (_h = (_g = res['result']) === null || _g === void 0 ? void 0 : _g['photo']) === null || _h === void 0 ? void 0 : _h['big_file_id'],
-                                            big_file_unique_id: (_k = (_j = res['result']) === null || _j === void 0 ? void 0 : _j['photo']) === null || _k === void 0 ? void 0 : _k['big_file_unique_id'],
-                                            small_file_id: (_m = (_l = res['result']) === null || _l === void 0 ? void 0 : _l['photo']) === null || _m === void 0 ? void 0 : _m['small_file_id'],
-                                            small_file_unique_id: (_p = (_o = res['result']) === null || _o === void 0 ? void 0 : _o['photo']) === null || _p === void 0 ? void 0 : _p['big_file_id'],
+                                            big_file_id: (_j = (_h = res['result']) === null || _h === void 0 ? void 0 : _h['photo']) === null || _j === void 0 ? void 0 : _j['big_file_id'],
+                                            big_file_unique_id: (_l = (_k = res['result']) === null || _k === void 0 ? void 0 : _k['photo']) === null || _l === void 0 ? void 0 : _l['big_file_unique_id'],
+                                            small_file_id: (_o = (_m = res['result']) === null || _m === void 0 ? void 0 : _m['photo']) === null || _o === void 0 ? void 0 : _o['small_file_id'],
+                                            small_file_unique_id: (_q = (_p = res['result']) === null || _p === void 0 ? void 0 : _p['photo']) === null || _q === void 0 ? void 0 : _q['big_file_id'],
                                         }
                                     });
                                 }

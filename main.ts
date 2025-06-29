@@ -974,6 +974,7 @@ export class BaleBot extends EventEmitter {
                         title: res['result']?.['title'],
                         invite_link: res['result']?.['invite_link'],
                         username: res['result']?.['username'],
+                        type: res['result']?.['type'],
                         photo: {
                             big_file_id: res['result']?.['photo']?.['big_file_id'],
                             big_file_unique_id: res['result']?.['photo']?.['big_file_unique_id'],
